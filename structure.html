@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ --> 
+<!--[if lt IE 7 ]> <html lang="no" class="no-js ie6"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="no" class="no-js ie7"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="no" class="no-js ie8"> <![endif]-->
+<!--[if IE 9 ]>    <html lang="no" class="no-js ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="no" class="no-js"> <!--<![endif]-->
+
+  <head>
+    <!--[if IE]><![endif]-->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta charset="utf-8" />
+    <meta name="author" content="lre">
+
+    <!--  Mobile viewport optimized: j.mp/bplateviewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- All JavaScript at the bottom, except for Modernizr which enables HTML5 elements & feature detects -->
+    <script src="js/modernizr-1.6.min.js"></script>
+    <script src="js/local.js"></script>
+
+    <title>HTML5 - struktur</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="shortcut icon" href="media/favicon.png" type="image/png">
+  </head>
+
+  <body>
+
+    <div id="container">
+      <h1>HTML5 - Struktur</h1>
+
+      <header>
+        <img src="media/logo2.gif" alt="logo" />
+        &nbsp;&nbsp;&nbsp;
+        <img src="media/HTML5.png" alt="logo" />
+        <p class="comment">Her: &lt;header&gt;</p>
+      </header>
+
+      <nav id="nav">
+        <ul>
+          <li><a href="index.html">Intro</a></li>
+          <li><a href="history.html">Historien</a></li>
+          <li>
+            <a href="structure.html">Struktur</a>
+            <ul>
+              <li><a href="#decl">Deklarasjon</a></li>
+              <li><a href="#struct">Struktur</a></li>
+              <li><a href="#inter">Interaktiv</a></li>
+              <li><a href="#fig">Figur</a></li>
+              <li><a href="#micro">Microdata</a></li>
+            </ul>
+          </li>
+          <li><a href="media.html">Media</a></li>
+          <li><a href="workers.html">Workers</a></li>
+          <li><a href="offline.html">Offline</a></li>
+          <li><a href="forms.html">Forms</a></li>
+          <li><a href="desktop.html">Desktop</a></li>
+          <li><a href="mobile.html">Mobil</a></li>
+          <li><a href="divapi.html">APIer</a></li>
+          <li><a href="refs.html">Referanser</a></li>
+      </ul>
+        <p class="comment">Her: &lt;nav&gt;</p>
+      </nav>
+
+      <section id="main">
+
+        <article id='decl'>
+          <header>
+            <h2>Deklarasjon</h2>
+          </header>
+          <ul>
+            <li>Standard deklarasjon, uten SGML&#x2026; <pre>&lt;html [lang="no"]&gt;</pre></li>
+            <li>Enklere tegnsett: <pre>&lt;meta charset="utf-8" /&gt;</pre></li>
+          </ul>
+        </article>
+
+        <article id="struct">
+          <header>
+            <hgroup>
+              <h2>Strukturtagger (h2)</h2>
+              <h3>h3 i hgroup</h3>
+            </hgroup>
+            <p class="comment">Her: section&gt;article&gt;header (hgroup)</p>
+          </header>
+          <p class="comment">Her: section&gt;article</p>
+          <ul>
+            <li>section, article</li>
+            <li>header, footer</li>
+            <li>hgroup</li>
+            <li>nav, aside</li>
+            <li>
+              <input type="checkbox" id='markSupp'><mark>mark</mark></input>
+              (<mark>ikke</mark> Opera)
+            </li>
+          </ul>
+          <footer>
+            Nok om det&#x2026;.
+            <p class="comment">Her: section&gt;article&gt;footer</p>
+          </footer>
+          <script type='text/javascript'>
+            // lreSupportBox(!!(document.createElement('mark')), 'markSupp');
+          </script>
+        </article>
+
+        <article id='inter'>
+          <header>
+            <h2>Interaktive elementer</h2>
+          </header>
+          <details>
+            <summary>Ingress</summary>
+            <p class="comment">Her: details, summary over</p>
+          </details>
+          <table width="100%" border="1" cellspacing="0" summary="layout">
+            <tr>
+              <td>
+                <b><code>&lt;command&gt;</code></b>:<br/>
+                <command type="checkbox" label="command.checkbox" title="Sjekkboks" checked="true" icon="media/blot.gif">command.checkbox</command><br/>
+                <command type="radio" label="command.radio" title="Radio" checked="true" icon="media/blot.gif">command.radio</command><br/>
+                <command type="command" label="command.command" title="Command" icon="media/blot.gif">command.command</command><br/>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <b><code>&lt;menu type="toolbar"&gt;</code></b>:<br/>
+                <menu type="toolbar">
+                  <menu label="File">
+                    <button type="button">New&#x2026;</button>
+                    <button type="button">Open&#x2026;</button>
+                    <button type="button">Save</button>
+                    <button type="button">Save as&#x2026;</button>
+                  </menu>
+                </menu>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <b><code>accesskey, hidden</code></b>:<br/>
+                <ul>
+                  <li accesskey="A">Alfa</li>
+                  <li accesskey="B">Beta</li>
+                  <li accesskey="G" hidden="hidden">Gamma (hidden&#x2026;)</li>
+                  <li accesskey="D">Delta</li>
+                </ul>
+              </td>
+            </tr>
+          </table>
+          <p>&#xA0;</p>
+          <footer>
+            Working drafts; WHATWG, next generation additions
+          </footer>
+        </article>
+
+        <article id="fig">
+          <header>
+            <h2>Figur</h2>
+          </header>
+          <p>&#xA0;</p>
+          <figure>
+            <figcaption>Blot (&gt;figcaption):</figcaption>
+            <img width="100px" src="media/blot.gif" alt="blot" />
+            <p>Ogs&aring; kjent som sp&oslash;kelseskladden</p>
+          </figure>
+          <p>&#xA0;</p>
+          <footer><p class="comment">Her: &lt;figure/figcaption&gt;</p></footer>
+        </article>
+
+        <article id='micro'>
+          <header>
+            <h2>Microdata</h2>
+          </header>
+          <ul>
+            <li><input type="checkbox" id='microSupp'>Microdata</input></li>
+            <li>Omdiskutert&#x2026;</li>
+            <li>
+              Attributter: <code>itemscope itemtype="url"</code><br/>
+              <code>itemprop="value"</code>
+            </li>
+            <li><a href="http://www.w3.org/TR/microdata/" target="_blank">[www.w3.org/TR/microdata]</a></li>
+          </ul>
+          <script type='text/javascript'>
+            lreSupportBox(!!(document.getItems), 'microSupp');
+          </script>
+        </article>
+
+      </section>
+
+      <aside>
+        <p class="comment">Her: &lt;aside&gt;</p>
+
+        <h3>Dessuten&#x2026;</h3>
+        <p>
+          <code>&lt;ruby&gt;</code> /
+          <code>&lt;rp&gt;</code> /
+          <code>&lt;rt&gt;</code> (asiatiske tegn)<br/>
+          <code>&lt;keygen&gt;</code> (generate key pair)<br/>
+          <code>&lt;wbr&gt;</code> (word break)<br/>
+        </p>
+      </aside>
+
+      <footer>
+        <h3>&copy; Mesan AS 2011</h3>
+        <p class="comment">Her: &lt;footer&gt;</p>
+      </footer>
+    </div>
+  </body>
+</html>

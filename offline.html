@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
+<!--[if lt IE 7 ]> <html lang="no" class="no-js ie6"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="no" class="no-js ie7"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="no" class="no-js ie8"> <![endif]-->
+<!--[if IE 9 ]>    <html lang="no" class="no-js ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="no" class="no-js" manifest="offline.manifest"> <!--<![endif]-->
+
+  <head>
+    <!--[if IE]><![endif]-->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta charset="utf-8" />
+    <meta name="author" content="lre">
+
+    <!--  Mobile viewport optimized: j.mp/bplateviewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- All JavaScript at the bottom, except for Modernizr which enables HTML5 elements & feature detects -->
+    <script src="js/modernizr-1.6.min.js"></script>
+    <script src="js/local.js"></script>
+
+    <title>HTML5 - offline</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="shortcut icon" href="media/favicon.png" type="image/png">
+  </head>
+
+  <body>
+
+    <div id="container">
+      <h1>HTML5 - Offline</h1>
+
+      <header>
+        <img src="media/logo2.gif" alt="logo" />
+        &nbsp;&nbsp;&nbsp;
+        <img src="media/HTML5.png" alt="logo" />
+      </header>
+
+      <nav id="nav">
+        <ul>
+          <li><a href="index.html">Intro</a></li>
+          <li><a href="history.html">Historien</a></li>
+          <li><a href="structure.html">Struktur</a></li>
+          <li><a href="media.html">Media</a></li>
+          <li><a href="workers.html">Workers</a></li>
+          <li>
+            <a href="offline.html">Offline</a>
+            <ul>
+              <li><a href="#intro">Intro</a></li>
+              <li><a href="#log">Logg</a></li>
+              <li><a href="#manifest">Manifest</a></li>
+          </ul>
+          </li>
+          <li><a href="forms.html">Forms</a></li>
+          <li><a href="desktop.html">Desktop</a></li>
+          <li><a href="mobile.html">Mobil</a></li>
+          <li><a href="divapi.html">APIer</a></li>
+          <li><a href="refs.html">Referanser</a></li>
+        </ul>
+      </nav>
+
+      <section id="main">
+
+        <article id="intro">
+          <header>
+            <h2>Offline applikasjon</h2>
+          </header>
+          <ul>
+            <li>
+              <input type="checkbox" id='offSupp'>St&oslash;ttet</input>
+              <ul>
+                <li><input type="checkbox" id='onLine'>navigator.onLine</input></li>
+                <li><input type="checkbox" id='schemeSupp'>Custom scheme handlers</input></li>
+                <li>Status: <code id='cacheStat'>?</code></li>
+            </ul>
+            </li>
+            <li>M&aring; ha <a href="#manifest"><code>html.manifest</code></a></li>
+            <li>Cache (&amp; events): "Uncached", "Idle" (<code>onidle</code>),
+            "Checking" <code>onchecking</code>, "Downloading"
+            (<code>ondownloading</code>), "Update Ready"
+            (<code>onupdateready</code>), "Obsolete"
+            (<code>onobsolete</code>)<br/>
+            + <code>onerror, onupdate, onprogress</code></li>
+          </ul>
+          <hr />
+          <button onclick="checkUpd()">Oppdater</button>
+          <p id="log">
+            <b>Logg</b>
+          </p>
+          <script type='text/javascript'>
+            function cacheStatus(n) {
+              statusMessages = ["Uncached","Idle","Checking","Downloading",
+                                "Update Ready","Obsolete"];
+              return statusMessages[n];
+            }
+
+            function log(o) {
+              lreSupportBox(!!(window.applicationCache), 'offSupp');
+              lreSupportBox(!!(window.navigator.registerProtocolHandler), 'schemeSupp');
+              lreSupportBox(!!(navigator.onLine), 'onLine');
+              document.getElementById("log").innerHTML=
+                 document.getElementById("log").innerHTML + "<br/>" + o;
+            }
+
+            function checkUpd() {
+              log("Oppdaterer...");
+              try {
+                window.applicationCache.update();
+              } catch (e) {
+                log(e);
+              }
+            }
+
+            log("Starter");
+            document.getElementById("cacheStat").innerHTML= cacheStatus(window.applicationCache.status);
+
+            window.onnoupdate= function() {
+              log("Ingen oppdateringer");
+            }
+            window.onchecking= function() {
+              log("Sjekker oppdateringer");
+            }
+            window.onupdateready= function() {
+              log("Ny versjon");
+            }
+            window.addEventListener("online", function(e) {
+              log("Online!");
+            });
+            window.addEventListener("offline", function(e) {
+              log("Offline!");
+            });K
+          </script>
+        </article>
+
+        <article id='manifest'>
+          <header>
+            <h2>Manifest</h2>
+          </header>
+          <ul>
+            <li>
+              <code>CACHE MANIFEST</code> (filliste)
+              <ul>
+                <li>Liste av filer som skal leses offline</li>
+              </ul>
+            </li>
+            <li>
+              <code>NETWORK</code> (filliste)
+              <ul>
+                <li>Ikke cachet</li>
+              </ul>
+            </li>
+            <li>
+              <code>FALLBACK</code>
+              <ul>
+                <li>Alternative ressurser</li>
+              </ul>
+            </li>
+            <li>
+              Eksempel:
+              <pre>CACHE MANIFEST
+./js/local.js
+./css/style.css</pre>
+            </li>
+          </ul>
+        </article>
+
+      </section>
+
+      <aside>
+      </aside>
+
+      <footer>
+        <h3>&copy; Mesan AS 2011</h3>
+      </footer>
+    </div>
+  </body>
+</html>

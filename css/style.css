@@ -1,0 +1,302 @@
+body {
+    color: #333;
+    background-color:#EEEEEE;
+    font-family:Calibri,Arial,Helvetica,sans-serif;
+    margin: 0px auto;
+    /* max-width: 1024px; */
+    max-width: 92%;
+    border: solid;
+    border-color: #FFFFFF;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -o-border-radius: 3px;
+}
+
+header, footer, h1, h2, h3, h4 {
+    font-family: "Handel Gothic Com Light", Calibri,
+                 Arial,Helvetica,sans-serif;
+}
+
+header {
+    background-color: #b81319;
+    display:block;
+    color:#FFFFFF;
+    text-align:center;
+}
+
+header h3 { margin: 0px; }
+
+h1 {
+    font-size: 16px;
+    color: #b81319;
+    background-color: #fff;
+    box-shadow: 2px 2px 20px #888;
+    text-align: left;
+    transform: rotate(-30deg);
+    -o-box-shadow: 2px 2px 20px #888;
+    -o-transform: rotate(-30deg);
+    -webkit-box-shadow: 2px 2px 20px #888;
+    -webkit-transform: rotate(-30deg);
+    -moz-box-shadow: 2px 2px 20px #888;
+    -moz-transform: rotate(-30deg);
+    position: absolute;
+    padding: 0px 150px;
+    top: 50px;
+    left: -120px;
+}
+
+h2 {
+    font-size: 24px;
+    margin: 0px;
+    text-align:center;
+}
+
+article h2 { font-size: 18px; }
+
+h3 {
+    font-size: 18px;
+    margin: 0px;
+    text-align:center;
+}
+
+#nav {
+    display:block;
+    width:18%;
+    float:left;
+}
+
+#nav ul {
+    list-style: none;
+}
+
+#nav ul ul {
+    list-style: circle;
+}
+
+#nav a:link, #nav a:visited {
+    border-top: 1px solid #fff;
+    padding: 5px;
+    margin: 2px;
+}
+
+#nav ul li ul li a:link, #nav ul li ul li a:visited {
+    border: none;
+    padding: 0px;
+    margin: 2px;
+}
+
+nav a:link, nav a:visited {
+    display: block;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+nav a:hover {
+    color: white;
+    background-color: #b81319;
+}
+
+nav h3 {
+    margin: 15px;
+    color: white;
+}
+
+#container {
+    background-color: #888;
+}
+
+section {
+    display: block;
+    width: 61%;
+    float: left;
+}
+
+video, audio {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+article {
+    background-color: #eee;
+    display: block;
+    margin: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -o-border-radius: 10px;
+}
+
+article header {
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -o-border-radius: 10px;
+    padding: 5px;
+}
+
+article footer {
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -o-border-radius: 10px;
+    padding: 5px;
+}
+
+
+aside {
+    display:block;
+    width:21%;
+    float:left;
+    border-radius: 10px;
+}
+
+aside h3 {
+    margin: 15px;
+    color: white;
+}
+
+aside p {
+    border: solid;
+    border-color: #b81319;
+    margin: 15px;
+    padding: 4px;
+    font-size: smaller;
+    background-color: #fff;
+    border-radius: 6px;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    -o-border-radius: 6px;
+}
+
+
+footer {
+    clear: both;
+    display: block;
+    background-color: #b81319;
+    color:#FFFFFF;
+    text-align:center;
+    padding: 5px;
+}
+
+footer h2 {
+    font-size: 14px;
+    color: white;
+}
+
+a {
+    color: #b81319;
+    text-decoration: none;
+}
+
+footer a { color: #999999; }
+
+a:hover { text-decoration: underline; }
+
+.comment {
+    color: #000000;
+    font-size: smaller;
+    text-align: center;
+}
+
+.center { text-align: center; }
+
+dt { font-weight: bold; }
+
+form {
+    background-color: #eee;
+    display: block;
+    margin: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 2px 2px 20px #888;
+}
+
+pre, blockquote {
+    border: 1px solid #999;
+    border-radius: 3px;
+    padding: 2px;
+    page-break-inside: avoid;
+}
+
+pre, code {
+    font-family: Consolas, Courier, fixed;
+    font-size: smaller;
+}
+
+html { overflow-y: scroll; } /* always force a scrollbar in non-IE */
+
+textarea { overflow: auto; } /* thnx ivannikolic! www.sitepoint.com/blogs/2010/08/20/ie-remove-textarea-scrollbars/ */
+
+/* align checkboxes, radios, text inputs with their label */
+input[type="radio"] { vertical-align: text-bottom; }
+input[type="checkbox"] { vertical-align: bottom; *vertical-align: baseline; }
+.ie6 input { vertical-align: text-bottom; }
+
+/* hand cursor on clickable input elements */
+label, input[type=button], input[type=submit], button { cursor: pointer; }
+
+
+/* colors for form validity */
+input:valid, textarea:valid   {  }
+input:invalid, textarea:invalid {
+    border-radius: 1px;
+    -moz-box-shadow: 0px 0px 5px red;
+    -webkit-box-shadow: 0px 0px 5px red;
+    -o-box-shadow: 0px 0px 5px red;
+    box-shadow: 0px 0px 5px red;
+}
+.no-boxshadow input:invalid, .no-boxshadow textarea:invalid {
+    background-color: #f0dddd;
+}
+
+
+/* Hide for both screenreaders and browsers css-discuss.incutio.com/wiki/Screenreader_Visibility */
+.hidden { display: none; visibility: hidden; }
+
+
+/* Media queries for responsive design
+ * These follow after primary styles so they will successfully override. */
+
+@media all and (orientation:portrait) { /* Style adjustments for portrait mode goes here */ }
+
+@media all and (orientation:landscape) { /* Style adjustments for landscape mode goes here */ }
+
+/* Grade-A Mobile Browsers (Opera Mobile, iPhone Safari, Android Chrome)
+   Consider this: www.cloudfour.com/css-media-query-for-mobile-is-fools-gold/ */
+@media screen and (max-device-width: 480px) {
+
+
+  /* Uncomment if you don't want iOS and WinMobile to mobile-optimize the text for you
+     j.mp/textsizeadjust
+  html { -webkit-text-size-adjust:none; -ms-text-size-adjust:none; } */
+}
+
+/*
+ * print styles
+ * inlined to avoid required HTTP connection www.phpied.com/delay-loading-your-print-css/
+ */
+@media print {
+  * { background: transparent !important;
+      text-shadow: none !important;
+  }
+  a, a:visited { text-decoration: underline; }
+  a:after { content: " (" attr(href) ")"; }
+  abbr:after { content: " (" attr(title) ")"; }
+  thead { display: table-header-group; } /* css-discuss.incutio.com/wiki/Printing_Tables */
+  tr, img { page-break-inside: avoid; }
+  @page { margin: 0.5cm; }
+  p, h2, h3 {
+      orphans: 3;
+      widows: 3;
+  }
+  h2, h3{ page-break-after: avoid; }
+
+  aside p {
+      border: 1px solid #999;
+      border-radius: 3px;
+      margin: 15px;
+      padding: 4px;
+  }
+}

@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
+<!--[if lt IE 7 ]> <html lang="no" class="no-js ie6"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="no" class="no-js ie7"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="no" class="no-js ie8"> <![endif]-->
+<!--[if IE 9 ]>    <html lang="no" class="no-js ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="no" class="no-js"> <!--<![endif]-->
+
+  <head>
+    <!--[if IE]><![endif]-->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta charset="utf-8" />
+    <meta name="author" content="lre">
+
+    <!--  Mobile viewport optimized: j.mp/bplateviewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- All JavaScript at the bottom, except for Modernizr which enables HTML5 elements & feature detects -->
+    <script src="js/modernizr-1.6.min.js"></script>
+    <script src="js/local.js"></script>
+
+    <title>HTML5 - Desktop</title>
+    <link rel="stylesheet" href="css/style.css" />
+
+    <style type="text/css">
+.thumbs {
+        height:75px;
+        width:75px;
+        border:0px;
+        margin:15px 15px 0 0;
+}
+    </style>
+    <link rel="shortcut icon" href="media/favicon.png" type="image/png">
+  </head>
+
+  <body>
+
+    <div id="container">
+      <h1>HTML5 - Desktop</h1>
+
+      <header>
+        <img src="media/logo2.gif" alt="logo" />
+        &nbsp;&nbsp;&nbsp;
+        <img src="media/HTML5.png" alt="logo" />
+      </header>
+
+      <nav id="nav">
+        <ul>
+          <li><a href="index.html">Intro</a></li>
+          <li><a href="history.html">Historien</a></li>
+          <li><a href="structure.html">Struktur</a></li>
+          <li><a href="media.html">Media</a></li>
+          <li><a href="workers.html">Workers</a></li>
+          <li><a href="offline.html">Offline</a></li>
+          <li><a href="forms.html">Forms</a></li>
+          <li>
+            <a href="desktop.html">Desktop</a>
+            <ul>
+              <li><a href="#fileDnd">Files, D'n'D</a></li>
+              <li><a href="#edits">Edit, storage</a></li>
+            </ul>
+          </li>
+          <li><a href="mobile.html">Mobil</a></li>
+          <li><a href="divapi.html">APIer</a></li>
+          <li><a href="refs.html">Referanser</a></li>
+        </ul>
+      </nav>
+
+      <section id="main">
+
+        <article id='fileDnD'>
+          <header>
+            <h2>File API + Drag'n'Drop</h2>
+          </header>
+          <table width="100%" border="1" cellspacing="0" cellpadding="5">
+            <tr>
+              <td>
+                <input type="checkbox" id="dndSupp">Drag'n'Drop</input><br/>
+                Events: drag, dragstart, dragenter, dragover, dragleave,
+                dragend, drop<br/>
+              </td>
+            </tr>
+            <tr bgcolor="#F2F2F2">
+              <th class="tableheader">Thumbnails</th>
+            </tr>
+            <tr>
+              <td align="left"
+                  height="105"
+                  ondragenter="return false"
+                  ondragover="return false"
+                  ondrop="dropIt(event)">
+                <output id="thumbs" />
+              </td>
+            </tr>
+            <tr>
+              <td align="center"><b>Drop filer over&#x2026; best i Firefox&#x2026;</b></td>
+            </tr>
+            <tr>
+              <td>
+                <pre>&lt;td ondrop="dropIt(event)"&gt;</pre>
+                <pre>
+function imagesSelected(myFiles) {
+  for (var i = 0, f; f = myFiles[i]; i++) {
+    var imageReader = new FileReader();
+    imageReader.onload = (function(aFile) {
+      return function(e) {
+        var span = document.createElement('span');
+        span.innerHTML = ['&lt;img class="thumbs" src="',
+            e.target.result,'" title="', aFile.name, '"/>'].join('');
+        document.getElementById('thumbs').insertBefore(span, null);
+      };
+    })(f);
+    imageReader.readAsDataURL(f);
+  }
+}
+
+function dropIt(e) {
+   imagesSelected(e.dataTransfer.files);
+   e.stopPropagation();
+   e.preventDefault();
+}</pre></td>
+            </tr>
+            <tr>
+              <td>
+                <b>Intern tautrekking</b><br/>
+                Trekk med deg noen problemer (bruk Chrome):
+                <ul ondragstart="dragStartHandler(event)">
+                  <li draggable="true" data-value="probSpeed">Ytelse</li>
+                  <li draggable="true" data-value="probUx">Brukervennlighet</li>
+                  <li draggable="true" data-value="probSafe">Sikkerhet</li>
+                  <li draggable="true" data-value="probBrokenWindows">Vedlikeholdbarhet</li>
+                  <li draggable="false" data-value="probDrag">Manglende trekkbarhet</li>
+                </ul>
+                <pre>&lt;li draggable="true" data-value="probSpeed"&gt;Ytelse&lt;/li&gt;</pre>
+                <ol id="dropZone"
+                    dropzone="copy f:text/plain"
+                    ondragover="dragOverHandler(event)"
+                    ondrop="dropHandler(event)">
+                  <li>Slipp problemene dine her</li>
+                </ol>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <b>File API</b>
+                <ul>
+                  <li><a href="http://www.w3.org/TR/FileAPI/"
+                  target="_blank">[www.w3.org/TR/FileAPI]</a></li>
+                  <li><code>FileList, Blob, File, FileReader
+                  (readAsArrayBuffer, readAsBinaryString, readAsText,
+                  readAsDataURL), FileError, FileException</code></li>
+                  <li>
+                    <b>File Writer API</b>
+                    <ul>
+                      <li><a href="http://www.w3.org/TR/file-writer-api/"
+                      target="_blank">[www.w3.org/TR/file-writer-api]</a></li>
+                      <li><code>BlobBuilder, FileSaver, FileWriter,
+                      FileWriterSync</code></li>
+                    </ul>
+                  </li>
+                  <li>
+                    <b>Filsystem-API</b>
+                    <ul>
+                      <li><a href="http://www.w3.org/TR/file-system-api/"
+                      target="_blank">[www.w3.org/TR/file-system-api]</a></li>
+                      <li><code>LocalFileSystem, FileSystem, MetaData,
+                      DirectoryEntry, FileEntry, &#x2026;</code></li>
+                    </ul>
+                  </li>
+                </ul>
+              </td>
+            </tr>
+          </table>
+          <footer>
+            Kilde: <a href="https://www.ibm.com/developerworks/mydeveloperworks/blogs/bobleah/entry/html5_code_example_of_file_api_drag_drop_hard_drive_files_to_a_webpage28?lang=en" target="_blank">IBM
+            developerWorks, Bob Leah: code example of File API</a>
+          </footer>
+          <script type='text/javascript'>
+            lreSupportBox(Modernizr.draganddrop, 'dndSupp');
+
+            function imagesSelected(myFiles) {
+              for (var i = 0, f; f = myFiles[i]; i++) {
+                var imageReader = new FileReader();
+                imageReader.onload = (function(aFile) {
+                  return function(e) {
+                    var span = document.createElement('span');
+                    span.innerHTML = ['<img class="thumbs" src="', e.target.result,'" title="', aFile.name, '"/>'].join('');
+                    document.getElementById('thumbs').insertBefore(span, null);
+                  };
+                })(f);
+                imageReader.readAsDataURL(f);
+              }
+            }
+
+            function dropIt(e) {
+               imagesSelected(e.dataTransfer.files);
+               e.stopPropagation();
+               e.preventDefault();
+            }
+
+            function dragStartHandler(event) {
+              event.dataTransfer.setData("text/plain", event.target.dataset.value);
+              event.dataTransfer.effectAllowed = 'copy';
+            }
+            function dragOverHandler(event) {
+              event.preventDefault();
+            }
+            function dropHandler(event) {
+              // drop the data
+              var li = document.createElement('li');
+              li.textContent= event.dataTransfer.getData("text/plain").substring(4);
+              event.target.appendChild(li);
+            }
+          </script>
+        </article>
+
+        <article id='edits'>
+         <header>
+            <h2>ContentEditable + LocalStorage</h2>
+          </header>
+          <table width="100%" border="1" cellspacing="0" cellpadding="5">
+            <tr>
+              <td>
+                <input type="checkbox" id="editSupp"><code>contentEditable</code></input><br/>
+                <input type="checkbox" id="scrollSupp"><code>scrollIntoView</code></input><br/>
+                <input type="checkbox" id="textSelSupp"><code>Text selection</code></input><br/>
+              </td>
+            </tr>
+            <tr>
+              <td align="center"><b>Og her m&aring; vi til
+              Chrome&#x2026; Skriv i ruten under&#x2026;</b></td>
+            </tr>
+            <tr>
+              <td contenteditable="true"
+                  id="scribble"
+                  onkeyup="storeUserScribble(this.id)">
+              </td>
+            </tr>
+            <tr>
+              <td><pre>&lt;td contenteditable="true"
+    id="scribble"
+    onkeyup="storeUserScribble(this.id)"&gt;</pre></td>
+            </tr>
+            <tr>
+              <td><pre>function storeUserScribble(id) {
+  var scribble = JSON.stringify(document.
+               getElementById('scribble').innerHTML);
+  localStorage.setItem('userScribble', scribble);
+}</pre></td>
+            </tr>
+          </table>
+          <footer>
+            Kilde: <a href="https://www.ibm.com/developerworks/mydeveloperworks/blogs/bobleah/entry/html5_code_example_of_contenteditable_and_localstorage_create_a_web_sticky_note" target="_blank">IBM
+            developerWorks, Bob Leah: code example of ContentEditable
+            and LocalStorage </a><br/>
+            <b>Se ogs&aring; <a href="divapi.html#webStore">Web Storage API</a></b>
+          </footer>
+          <script type='text/javascript'>
+            function storeUserScribble(id) {
+              var scribble = JSON.stringify(document.getElementById('scribble').innerHTML);
+              localStorage.setItem('userScribble', scribble);
+            }
+
+            function getUserScribble() {
+              var scribble = JSON.parse(localStorage.getItem('userScribble'));
+              if ( scribble==null ) {
+                var scribble = '<i>Default tekst</i>';
+              }
+              document.getElementById('scribble').innerHTML = scribble;
+            }
+
+            getUserScribble();
+
+            var el = document.createElement('div');
+            lreSupportBox(!!(el.scrollInView), 'scrollSupp');
+            lreSupportBox(!!('isContentEditable' in el), 'editSupp');
+            lreSupportBox(!!(window.getSelection), 'textSelSupp');
+          </script>
+        </article>
+
+      </section>
+
+      <aside>
+        <h3>DB-typer</h3>
+        <p>Noen st&oslash;tter bare strenger (JSON.stringify)</p>
+      </aside>
+
+      <footer>
+        <h2>&copy; Mesan AS 2011</h2>
+      </footer>
+    </div>
+  </body>
+</html>

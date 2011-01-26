@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
+<!--[if lt IE 7 ]> <html lang="no" class="no-js ie6"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="no" class="no-js ie7"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="no" class="no-js ie8"> <![endif]-->
+<!--[if IE 9 ]>    <html lang="no" class="no-js ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="no" class="no-js"> <!--<![endif]-->
+
+  <head>
+    <!--[if IE]><![endif]-->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta charset="utf-8" />
+    <meta name="author" content="lre">
+
+    <!--  Mobile viewport optimized: j.mp/bplateviewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- All JavaScript at the bottom, except for Modernizr which enables HTML5 elements & feature detects -->
+    <script src="js/modernizr-1.6.min.js"></script>
+    <script src="js/local.js"></script>
+
+    <title>HTML5 - media</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="shortcut icon" href="media/favicon.png" type="image/png">
+  </head>
+
+  <body>
+
+    <div id="container">
+      <h1>HTML5 - Media</h1>
+
+      <header>
+        <img src="media/logo2.gif" alt="logo" />
+        &nbsp;&nbsp;&nbsp;
+        <img src="media/HTML5.png" alt="logo" />
+      </header>
+
+      <nav id="nav">
+        <ul>
+          <li><a href="index.html">Intro</a></li>
+          <li><a href="history.html">Historien</a></li>
+          <li><a href="structure.html">Struktur</a></li>
+          <li>
+            <a href="media.html">Media</a>
+            <ul>
+              <li><a href="#audio">Audio</a></li>
+              <li><a href="#video">Video</a></li>
+              <li><a href="#canvas">Canvas</a></li>
+              <li><a href="#svg">SVG, MathML</a></li>
+              <li><a href="#devCap">Device capture</a></li>
+            </ul>
+          </li>
+          <li><a href="workers.html">Workers</a></li>
+          <li><a href="offline.html">Offline</a></li>
+          <li><a href="forms.html">Forms</a></li>
+          <li><a href="desktop.html">Desktop</a></li>
+          <li><a href="mobile.html">Mobil</a></li>
+          <li><a href="divapi.html">APIer</a></li>
+          <li><a href="refs.html">Referanser</a></li>
+        </ul>
+      </nav>
+
+      <section id="main">
+
+        <article id="audio">
+          <header>
+            <h2>Audio</h2>
+          </header>
+          <p>
+            <input type="checkbox" id="audioSupp">St&oslash;ttet</input><br/>
+            Detaljer:
+            <input type="checkbox" id="afWav">WAV</input>
+            <input type="checkbox" id="afMp3">MP3</input>
+            <input type="checkbox" id="afAAC">AAC</input>
+            <input type="checkbox" id="afOgg">Ogg Vorbis</input>
+            <input type="checkbox" id="afWebM">WebM</input>
+          </p>
+          Ziggy:
+          <audio id="ziggy" controls>
+            <source src="media/ziggy.mp3" />
+            <source src="media/ziggy.ogg" />
+            Ziggy
+          </audio>
+          <img id='aPlay' src="media/hear.png" align="middle"/> (preview)
+          <script type='text/javascript'>
+            var aplayer= document.querySelector('#ziggy');
+            var btn= document.querySelector('#aPlay');
+
+            function audioInfo(player) {
+              var hasAudio= !!(player.canPlayType);
+              lreSupportBox(hasAudio, "audioSupp");
+              if ( !hasAudio ) return;
+              lreSupportBox(player.canPlayType('audio/mp4; codecs="mp4a.40.2"'), "afAAC");
+              lreSupportBox(player.canPlayType('audio/webm; codecs="vorbis"'), "afWebM");
+              lreSupportBox(!!(Modernizr.audio.ogg), "afOgg");
+              lreSupportBox(!!(Modernizr.audio.mp3), "afMp3");
+              lreSupportBox(!!(Modernizr.audio.wav), "afWav");
+            }
+
+            audioInfo(aplayer);
+
+            btn.onclick = function() {
+              videoInfo(player);
+              if (player.paused) {
+                player.play();
+                btn.innerHTML= "Stopp!";
+              }
+              else {
+                player.pause();
+                btn.innerHTML= "Start!";
+              }
+            }
+
+            btn.onmouseover= function() {
+              aplayer.play();
+              aplayer.loop= true;
+            }
+            btn.onmouseout= function() {
+              aplayer.pause();
+              aplayer.loop= true;
+            }
+          </script>
+        </article>
+
+        <article id="video">
+          <header>
+            <h2>Video</h2>
+          </header>
+          <p>
+            <input type="checkbox" id="videoSupp">St&oslash;ttet</input><br/>
+            Volume: <span id="videoVol">?</span><br/>
+            Info: <span id="dur">?</span>s Feil=<code id="videoErr"></code>
+            [<span id="currSrc"></span>]<br/>
+            Detaljer:
+            <input type="checkbox" id="fMpeg4">MPEG-4</input>
+            <input type="checkbox" id="fH264">H.264</input>
+            <input type="checkbox" id="fOgg">Ogg Theora</input>
+            <input type="checkbox" id="fWebM">WebM</input>
+            <input type="checkbox" id="fSubt">Subtitles</input>
+          </p>
+          <video id='videoplayer' controls>
+            <source src="media/Intermission-Walk-in.ogv"  type='video/ogg;
+                    codecs="theora, vorbis"'/>
+          </video><br/>
+          <button id='startStop'>Spill!</button>
+          <p>
+            <ul>
+              <li>Fremtidig: WebGL 3D
+                <input type="checkbox" id='webGlSupp'>Web GL</input></li>
+          </ul>
+          </p>
+          <script type='text/javascript'>
+            lreSupportBox(Modernizr.webgl, "webGlSupp");
+
+            var player= document.querySelector("#videoplayer");
+            var btn= document.querySelector("#startStop");
+
+            function videoInfo(player) {
+              var hasVideoSupp= !!(player.canPlayType);
+              lreSupportBox(hasVideoSupp, "videoSupp");
+              lreSupportBox(hasVideoSupp && ('track' in document.createElement('track')), "fSubt");
+              lreSupportBox(hasVideoSupp && player.canPlayType('video/mp4; codecs="mp4v.20.8"'), "fMpeg4");
+              lreSupportBox(hasVideoSupp && player.canPlayType('video/ogg; codecs="theora"'), "fOgg");
+              lreSupportBox(hasVideoSupp && player.canPlayType('video/webm; codecs="vp8"'), "fWebM");
+              lreSupportBox(hasVideoSupp && (player.canPlayType('video/mp4; codecs="avc1.42E01E"') || player.canPlayType('video/mp4; codecs="avc1.42E01E, mp4a.40.2"')), "fH264");
+              document.querySelector("#videoErr").innerHTML= player.error;
+              document.querySelector("#currSrc").innerHTML= player.currentSrc + " " + player.poster;
+              document.querySelector("#dur").innerHTML= player.currentTime +
+                                                        ":" + player.duration;
+              if ( player.muted ) {
+                document.querySelector("#videoVol").innerHTML= "mute";
+              }
+              else {
+                document.querySelector("#videoVol").innerHTML= player.volume;
+              }
+            }
+            videoInfo(player);
+
+            btn.onclick = function() {
+              videoInfo(player);
+              if (player.paused) {
+                player.play();
+                btn.innerHTML= "Stopp!";
+              }
+              else {
+                player.pause();
+                btn.innerHTML= "Start!";
+              }
+            }
+          </script>
+        </article>
+
+        <article id="canvas">
+          <header>
+            <h2>Canvas</h2>
+          </header>
+          <input type="checkbox" id='canvasSupp'>Canvas</input>
+          <input type="checkbox" id='canvasTextSupp'>Canvas text</input><br/>
+          <a href="http://www.w3.org/TR/2dcontext/ target="_blank"">[www.w3.org/TR/2dcontext]</a><br/>
+          <canvas id="canvas1" width="300" height="150">
+            Du har visst ikke st&oslash;tte for canvas :-(
+          </canvas>
+          <script type='text/javascript'>
+            lreSupportBox(Modernizr.canvas, "canvasSupp");
+            lreSupportBox(Modernizr.canvastext, "canvasTextSupp");
+
+            function testDrawing(context) {
+              context.fillStyle   = '#b81319';
+              context.strokeStyle = '#0';
+              context.lineWidth   = 4;
+
+              context.beginPath();
+              context.moveTo(10, 10); // give the (x,y) coordinates
+              context.lineTo(100, 10);
+              context.lineTo(10, 100);
+              context.lineTo(10, 10);
+              context.fill();
+              context.stroke();
+              context.closePath();
+
+              context.textBaseline = 'top';
+              context.font = 'italic 30px sans-serif';
+              context.lineWidth = 2;
+              context.strokeStyle = '#b81319';
+              context.strokeText('Hello, Mesan!', 60, 50);
+            }
+            try {
+              var canvas1 = document.getElementById('canvas1');
+              if (canvas1 && canvas1.getContext) {
+                var context = canvas1.getContext('2d');
+                if (context) {
+                  testDrawing(context);
+                }
+              }
+            }
+            catch(e) {
+              document.getElementById("canvas1").innerHTML="Feil i tegning :-(";
+            }
+          </script>
+          <footer>
+            <p class="comment">2D-kontekst &#x2026; 3D-kontekst i senere versjon&#x2026;</p>
+          </footer>
+        </article>
+
+        <article id='svg'>
+          <header>
+            <h2>SVG, MathML</h2>
+          </header>
+          <input type="checkbox" id='svgSupp'>SVG</input> (Scalable Vector Graphics)
+          <input type="checkbox" id='svgClipSupp'>clip paths</input>
+          <input type="checkbox" id='svgInlineSupp'>inline</input><br/>
+          <input type="checkbox" id='smilSupp'>SMIL</input> (Synchronized Multimedia Integration Language)
+          <ul>
+            <li>Inline uten namespace</li>
+            <li>
+              F.eks r&oslash;d halvsirkel (Chrome):
+              <svg id="svgelem" height="50"
+                   xmlns="http://www.w3.org/2000/svg">
+                <circle id="redcircle" cx="50" cy="50" r="50" fill="red" />
+              </svg>
+            </li>
+            <li>
+              <a href="https://eyeasme.com/Joe/MathML/HTML5_MathML_browser_test.html"
+              target="_blank">MathML-demo</a>,
+              f.eks.<b>De Morgan</b>:<br/>
+              <math mode="display" xmlns="http://www.w3.org/1998/Math/MathML">
+
+                <mrow>
+                  <mtext>
+                    Logic:&#x00A0;<!-- &nbsp; -->
+                  </mtext>
+                  <mo>&#x00AC;<!-- &not; --></mo>
+                  <mfenced>
+                    <mrow>
+                      <mi>p</mi>
+
+                      <mo>&#x2227;<!-- &and; --></mo>
+                      <mi>q</mi>
+                    </mrow>
+                  </mfenced>
+                  <mo lspace="veryverythickmathspace" rspace="veryverythickmathspace">&#x27FA;<!-- &Longleftrightarrow; --></mo>
+                  <mfenced>
+                    <mrow>
+                      <mo>&#x00AC;<!-- &not; --></mo>
+
+                      <mi>p</mi>
+                    </mrow>
+                  </mfenced>
+                  <mo>&#x2228;<!-- &or; --></mo>
+                  <mfenced>
+                    <mrow>
+                      <mo>&#x00AC;<!-- &not; --></mo>
+                      <mi>q</mi>
+
+                    </mrow>
+                  </mfenced>
+                </mrow>
+              </math><br/>
+              <math mode="display" xmlns="http://www.w3.org/1998/Math/MathML">
+                <mrow>
+                  <mtext>
+                    Boolean algebra:&#x00A0;<!-- &nbsp; -->
+
+                  </mtext>
+                  <mover>
+                    <mrow>
+                      <munderover>
+                        <mo>&#x22C3;<!-- &bigcup; --></mo>
+                        <mrow>
+                          <mi>i</mi>
+                          <mo>=</mo>
+
+                          <mn>1</mn>
+                        </mrow>
+                        <mi>n</mi>
+                      </munderover>
+                      <msub>
+                        <mi>A</mi>
+                        <mi>i</mi>
+
+                      </msub>
+                    </mrow>
+                    <mo>&#x00AF;<!-- &OverBar; --></mo>
+                  </mover>
+                  <mo>=</mo>
+                  <munderover>
+                    <mo>&#x22C2;<!-- &bigcap; --></mo>
+                    <mrow>
+
+                      <mi>i</mi>
+                      <mo>=</mo>
+                      <mn>1</mn>
+                    </mrow>
+                    <mi>n</mi>
+                  </munderover>
+                  <mover accent="true">
+
+                    <msub>
+                      <mi>A</mi>
+                      <mi>i</mi>
+                    </msub>
+                    <mo>&#x00AF;<!-- &OverBar; --></mo>
+                  </mover>
+                </mrow>
+              </math>
+            </li>
+          </ul>
+          <script type='text/javascript'>
+            lreSupportBox(Modernizr.svg, 'svgSupp');
+            lreSupportBox(Modernizr.inlinesvg, 'svgInlineSupp');
+            lreSupportBox(Modernizr.svgclippaths, 'svgClipSupp');
+            lreSupportBox(Modernizr.smil, 'smilSupp');
+          </script>
+        </article>
+
+        <article id='devCap'>
+          <header>
+            <h2>Device capture</h2>
+          </header>
+          <a href="http://www.w3.org/TR/media-capture-api/" target="_blank">[www.w3.org/TR/media-capture-api]</a><br/>
+          <ul>
+            <li><code>captureAudio()</code>, <code>captureImage()</code>, <code>captureVideo()</code></li>
+            <li><code>supportedXxxFormats</code></li>
+            <li>
+              <pre>
+var summary;
+formats = navigator.device.capture.supportedImageFormats;
+for (var key in formats) {
+  summary += key + ": " + formats[key] + "\n";
+}
+alert(summary);
+              </pre>
+            </li>
+          </ul>
+        </article>
+
+      </section>
+
+      <aside>
+
+        <h3>Codecs</h3>
+        <p>
+          Audio: AAC, MPEG-3, Ogg Vorbis<br/>
+          Video: H.264, VP8, Ogg Theora<br/>
+          <i>Ingen enighet om felles codecs, Ogg st&oslash;ttes av mange (men
+          ikke Apple)</i>
+        </p>
+
+        <h3>Source etc</h3>
+        <p>
+          Attributt <code>src=</code><br/>
+          Element <code>&lt;source src='file.ogg' [type='video/ogg']
+          [codecs='theora, vorbis'] /&gt;</code><br/>
+          Attributt <code>autoplay</code>
+        </p>
+
+        <h3>Javascript</h3>
+        <p>
+          <code>load(), play(), pause(), duration, paused, ended,
+          startTime, error, currentSrc, autoplay, loop, currentTime,
+          controls, volume, muted, autoBuffer, width, height</code>
+        </p>
+
+        <h3>Data URIs</h3>
+        <p>
+          <img src="data:image/png;base64,
+iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAABGdBTUEAALGP
+C/xhBQAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9YGARc5KB0XV+IA
+AAAddEVYdENvbW1lbnQAQ3JlYXRlZCB3aXRoIFRoZSBHSU1Q72QlbgAAAF1J
+REFUGNO9zL0NglAAxPEfdLTs4BZM4DIO4C7OwQg2JoQ9LE1exdlYvBBeZ7jq
+ch9//q1uH4TLzw4d6+ErXMMcXuHWxId3KOETnnXXV6MJpcq2MLaI97CER3N0
+vr4MkhoXe0rZigAAAABJRU5ErkJggg==" alt="Red dot" /> R&oslash;d prikk?
+        </p>
+      </aside>
+
+      <footer>
+        <h2>&copy; Mesan AS 2011</h2>
+      </footer>
+    </div>
+  </body>
+</html>

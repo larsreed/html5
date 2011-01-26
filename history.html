@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
+<!--[if lt IE 7 ]> <html lang="no" class="no-js ie6"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="no" class="no-js ie7"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="no" class="no-js ie8"> <![endif]-->
+<!--[if IE 9 ]>    <html lang="no" class="no-js ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="no" class="no-js"> <!--<![endif]-->
+
+  <head>
+    <!--[if IE]><![endif]-->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta charset="utf-8" />
+    <meta name="author" content="lre">
+
+    <!--  Mobile viewport optimized: j.mp/bplateviewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- All JavaScript at the bottom, except for Modernizr which enables HTML5 elements & feature detects -->
+    <script src="js/modernizr-1.6.min.js"></script>
+    <script src="js/local.js"></script>
+
+    <title>HTML5 - historikk, visjon</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="shortcut icon" href="media/favicon.png" type="image/png">
+  </head>
+
+  <body>
+
+    <div id="container">
+      <h1>HTML5 - Historikk, visjon</h1>
+
+      <header>
+        <img src="media/logo2.gif" alt="logo" />
+        &nbsp;&nbsp;&nbsp;
+        <img src="media/HTML5.png" alt="logo" />
+      </header>
+
+      <nav id="nav">
+        <ul>
+          <li><a href="index.html">Intro</a></li>
+          <li>
+            <a href="history.html">Historien</a>
+            <ul>
+              <li><a href="#hist">Historikk</a></li>
+              <li><a href="#visjon">Visjon</a></li>
+            </ul>
+          </li>
+          <li><a href="structure.html">Struktur</a></li>
+          <li><a href="media.html">Media</a></li>
+          <li><a href="workers.html">Workers</a></li>
+          <li><a href="offline.html">Offline</a></li>
+          <li><a href="forms.html">Forms</a></li>
+          <li><a href="desktop.html">Desktop</a></li>
+          <li><a href="mobile.html">Mobil</a></li>
+          <li><a href="divapi.html">APIer</a></li>
+          <li><a href="refs.html">Referanser</a></li>
+        </ul>
+      </nav>
+
+      <section id="main">
+
+        <article id="hist">
+          <header>
+            <h2>Historikk</h2>
+          </header>
+          <ul>
+            <li>HTML 4.01 (&amp; XHTML1) &ndash; 1999</li>
+            <li>
+              WHATWG HTML5 2004
+              <ul>
+                <li>(Web Hypertext Application Working Group)</li>
+                <li>Typisk browserleverand&oslash;rer</li>
+              </ul>
+            </li>
+            <li>
+              W3C 2006
+              <ul>
+                <li>Publisert 1. gang 2008</li>
+                <li>XHTML2 stoppet i 2009</li>
+                <li>IETF: Web socket API m.m.</li>
+              </ul>
+            </li>
+            <li>2012: Candidate Recommendation</li>
+            <li>2022: Proposed Recommendation&#x2026;</li>
+          </ul>
+        </article>
+
+        <article id="visjon">
+          <header>
+            <h2>Visjon</h2>
+          </header>
+          <dl>
+            <dt>Kompatibilitet &amp; nytte</dt>
+            <dd>
+              <ul>
+                <li>Brukere &gt; Forfattere &gt; Browsere &gt; Spesifikasjoner</li>
+                <li>Aksepterer fortsatt "alt"</li>
+                <li>XHTML5 for de strenge</li>
+                <li>
+                  Sikkerhet
+                  <ul>
+                    <li>Men er det sikkert nok?</li>
+                  </ul>
+                </li>
+                <li>Skille innhold og presentasjon</li>
+                <li>Bort fra SGML p&aring; parsing</li>
+              </ul>
+            </dd>
+            <dt>Interoperabilitet</dt>
+            <dd>
+              <ul>
+                <li>
+                  Mindre behov (men bedre st&oslash;tte for) JavaScript etc
+                  <ul>
+                    <li>Flere APIer</li>
+                    <li>
+                      F&aelig;rre plugins
+                      <ul>
+                        <li>Sikkerhet</li>
+                        <li>Kommunikasjon</li>
+                        <li>Enkelhet</li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+                <li>Mer detaljert spesifikasjon &ndash;
+                  FF Print Preview des 2010: 625 sider i hoveddok&#x2026;</li>
+                <li>Bedre feilh&aring;ndtering; detaljerte regler</li>
+              </ul>
+            </dd>
+            <dt>Universell tilgang</dt>
+            <dd>
+              <ul>
+                <li>WAI (Web Accessibility Initiative)</li>
+                <li>Portabilitet mellom plattformer</li>
+              </ul>
+            </dd>
+          </dl>
+        </article>
+
+        <article id='depr'>
+          <header>
+            <h2>Deprecated</h2>
+          </header>
+          <ul>
+            <li>applet</li>
+            <li>dir</li>
+            <li>isindex</li>
+            <li>font + basefont</li>
+            <li>frameset + noframes + frame</li>
+            <li>acronym</li>
+            <li>big</li>
+            <li>center</li>
+            <li>strike</li>
+            <li>tt</li>
+            <li>u</li>
+          </ul>
+        </article>
+
+      </section>
+
+      <aside>
+        <h3>Engines</h3>
+        <p>
+          Safari 4+: Nitro<br/>
+          Chrome 2+: V8<br/>
+          IE9: Chakra<br/>
+          Firefox 3.5+: J&auml;gerMonkey<br/>
+          Opera 10.5+: Carakan
+        </p>
+      </aside>
+
+      <footer>
+        <h2>&copy; Mesan AS 2011</h2>
+      </footer>
+    </div>
+  </body>
+</html>

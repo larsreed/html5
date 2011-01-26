@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
+<!--[if lt IE 7 ]> <html lang="no" class="no-js ie6"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="no" class="no-js ie7"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="no" class="no-js ie8"> <![endif]-->
+<!--[if IE 9 ]>    <html lang="no" class="no-js ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="no" class="no-js"> <!--<![endif]-->
+
+  <head>
+    <!--[if IE]><![endif]-->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta charset="utf-8" />
+    <meta name="author" content="lre">
+
+    <!--  Mobile viewport optimized: j.mp/bplateviewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- All JavaScript at the bottom, except for Modernizr which enables HTML5 elements & feature detects -->
+    <script src="js/modernizr-1.6.min.js"></script>
+    <script src="js/local.js"></script>
+
+    <title>HTML5 - mobil</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="shortcut icon" href="media/favicon.png" type="image/png">
+  </head>
+
+  <body>
+
+    <div id="container">
+      <h1>HTML5 - Mobil</h1>
+
+      <header>
+        <img src="media/logo2.gif" alt="logo" />
+        &nbsp;&nbsp;&nbsp;
+        <img src="media/HTML5.png" alt="logo" />
+      </header>
+
+      <nav id="nav">
+        <ul>
+          <li><a href="index.html">Intro</a></li>
+          <li><a href="history.html">Historien</a></li>
+          <li><a href="structure.html">Struktur</a></li>
+          <li><a href="media.html">Media</a></li>
+          <li><a href="workers.html">Workers</a></li>
+          <li><a href="offline.html">Offline</a></li>
+          <li><a href="forms.html">Forms</a></li>
+          <li><a href="desktop.html">Desktop</a></li>
+          <li>
+            <a href="mobile.html">Mobil</a>
+            <ul>
+              <li><a href="#API">Geo API</a></li>
+              <li><a href="#her">Her!</a></li>
+              <li><a href="#dev">Device m.m.</a></li>
+          </ul>
+          </li>
+          <li><a href="divapi.html">APIer</a></li>
+          <li><a href="refs.html">Referanser</a></li>
+        </ul>
+      </nav>
+
+      <section id="main">
+
+        <article id="API">
+          <header>
+            <h2>Geolocation API</h2>
+          </header>
+          <ul>
+            <li>Bekreftes av bruker</li>
+            <li>Latitude/longitude</li>
+            <li>Evt. altitude, altitudeAccuracy, heading, speed</li>
+            <li>Applikasjon -&gt; Browser -&gt; Device</li>
+            <li>
+              Ulike kilder:
+              <table summary="kilde til lokasjonsinfo" border="1">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>+</th>
+                    <th>-</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>IP-adresse</td>
+                    <td>Serverside, alltid tilgjengelig</td>
+                    <td>Lite n&oslash;yaktig, krever serverkall</td>
+                  </tr>
+                  <tr>
+                    <td>GPS</td>
+                    <td>N&oslash;yaktig</td>
+                    <td>Batteribruk, vanskelig innend&oslash;rs, hardwareavhengig</td>
+                  </tr>
+                  <tr>
+                    <td>WiFi</td>
+                    <td>N&oslash;yaktig, ogs&aring; innend&oslash;rs, raskt og lite forbruk</td>
+                    <td>Krever kjente aksesspunkter</td>
+                  </tr>
+                  <tr>
+                    <td>Mobilnett</td>
+                    <td>Ganske n&oslash;yaktig, ogs&aring; innend&oslash;rs, raskt og billig</td>
+                    <td>Kun p&aring; mobil, ikke like god kvalitet utenom byer</td>
+                  </tr>
+                  <tr>
+                    <td>Brukerinngitt</td>
+                    <td>Tja&#x2026;</td>
+                    <td>Ditto&#x2026;</td>
+                  </tr>
+                </tbody>
+              </table>
+            </li>
+          </ul>
+        </article>
+
+        <article id='her'>
+          <header>
+            <h2>Her &amp; n&aring;</h2>
+          </header>
+          <p>
+            <input type="checkbox" id="geoSupp">St&oslash;ttet?</input><br/>
+            <table id='gYes' summary="Lokasjon" border="1">
+              <caption>Lokasjon</caption>
+              <thead>
+                <tr>
+                  <th>Lat</th>
+                  <th>Long</th>
+                  <th>Accuracy (m)</th>
+                  <th>Alt (m)</th>
+                  <th>Alt.acc. (m)</th>
+                  <th>Heading</th>
+                  <th>Speed</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td id='gLat'>&nbsp;</td>
+                  <td id='gLong'>&nbsp;</td>
+                  <td id='gAcc'>&nbsp;</td>
+                  <td id='gAlt'>&nbsp;</td>
+                  <td id='gAltAcc'>&nbsp;</td>
+                  <td id='gHead'>&nbsp;</td>
+                  <td id='gSpeed'>&nbsp;</td>
+                </tr>
+              </tbody>
+            </table>
+          </p>
+          <p id='gNo'>
+            <span id='geoErr1'>Ikke kj&oslash;rt</span>
+            (<span id='geoErr2'>&nbsp;</span>)
+          </p>
+
+          <script type='text/javascript'>
+            var supp= !!(navigator.geolocation);
+            lreSupportBox(supp, 'geoSupp');
+
+            function visLokasjon(pos) {
+              document.getElementById('gNo').style.display= "none";
+              document.getElementById('gLat').innerHTML= pos.coords.latitude;
+              document.getElementById('gLong').innerHTML= pos.coords.longitude;
+              document.getElementById('gAcc').innerHTML= pos.coords.accuracy;
+              document.getElementById('gAlt').innerHTML= pos.coords.altitude;
+              document.getElementById('gAltAcc').innerHTML= pos.coords.altitudeAccuracy;
+              document.getElementById('gHead').innerHTML= pos.coords.heading;
+              document.getElementById('gSpeed').innerHTML= pos.coords.speed;
+            }
+
+            function lokasjonsfeil(err) {
+              document.getElementById('gYes').style.display= "none";
+              document.getElementById('geoErr1').innerHTML= err.code;
+              document.getElementById('geoErr2').innerHTML= err.message;
+              switch(err.code) {
+                case 0:
+                  document.getElementById('geoErr1').innerHTML= "Feil ved henting av lokasjon";
+                  break;
+                case 1:
+                  document.getElementById('geoErr1').innerHTML= "Bruker avslo tilgang";
+                  break;
+                case 2:
+                  document.getElementById('geoErr1').innerHTML= "Kunne ikke bestemme posisjon";
+                  break;
+                case 3:
+                  document.getElementById('geoErr1').innerHTML= "Timeout";
+                  break;
+              }
+            }
+
+            if ( supp ) {
+              navigator.geolocation.getCurrentPosition(visLokasjon,
+                          lokasjonsfeil, {enableHighAccuracy:true,
+                          timeout:7000,  maximumAge:10000});
+            }
+          </script>
+          <footer>
+            <a href="http://code.google.com/intl/no-NO/apis/maps/documentation/javascript/examples/map-geolocation.html"
+               target="_blank">HTML5 + Google Map</a>
+          </footer>
+        </article>
+
+        <article id='dev'>
+          <header>
+            <h2>Device ++</h2>
+          </header>
+          <ul>
+            <li>
+              <input type="checkbox" id='devSupp'>&lt;device&gt;</input>
+              <ul>
+                <li><code>type=</code> media, usb, &#x2026;</li>
+                <li>For direkte kommunikasjon med f.eks. webcam, rocket
+                launcher,&#x2026;</li>
+              </ul>
+            </li>
+            <li><input type="checkbox" id='touchSupp'>Touch support</input></li>
+          </ul>
+          <script type='text/javascript'>
+            lreSupportBox(!!('type' in document.createElement('device')), 'devSupp');
+            lreSupportBox(Modernizr.touch, 'touchSupp');
+          </script>
+        </article>
+
+      </section>
+
+      <aside>
+      </aside>
+
+      <footer>
+        <h3>&copy; Mesan AS 2011</h3>
+      </footer>
+    </div>
+  </body>
+</html>

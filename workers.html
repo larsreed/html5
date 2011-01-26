@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
+<!--[if lt IE 7 ]> <html lang="no" class="no-js ie6"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="no" class="no-js ie7"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="no" class="no-js ie8"> <![endif]-->
+<!--[if IE 9 ]>    <html lang="no" class="no-js ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="no" class="no-js"> <!--<![endif]-->
+
+  <head>
+    <!--[if IE]><![endif]-->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta charset="utf-8" />
+    <meta name="author" content="lre">
+
+    <!--  Mobile viewport optimized: j.mp/bplateviewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- All JavaScript at the bottom, except for Modernizr which enables HTML5 elements & feature detects -->
+    <script src="js/modernizr-1.6.min.js"></script>
+    <script src="js/local.js"></script>
+
+    <title>HTML5 - workers</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="shortcut icon" href="media/favicon.png" type="image/png">
+  </head>
+
+  <body>
+
+    <div id="container">
+      <h1>HTML5 - Workers</h1>
+
+      <header>
+        <img src="media/logo2.gif" alt="logo" />
+        &nbsp;&nbsp;&nbsp;
+        <img src="media/HTML5.png" alt="logo" />
+      </header>
+
+      <nav id="nav">
+        <ul>
+          <li><a href="index.html">Intro</a></li>
+          <li><a href="history.html">Historien</a></li>
+          <li><a href="structure.html">Struktur</a></li>
+          <li><a href="media.html">Media</a></li>
+          <li>
+            <a href="workers.html">Workers</a>
+            <ul>
+              <li><a href="#work">Worker</a></li>
+              <li><a href="#api">API</a></li>
+            </ul>
+          </li>
+          <li><a href="offline.html">Offline</a></li>
+          <li><a href="forms.html">Forms</a></li>
+          <li><a href="desktop.html">Desktop</a></li>
+          <li><a href="mobile.html">Mobil</a></li>
+          <li><a href="divapi.html">APIer</a></li>
+          <li><a href="refs.html">Referanser</a></li>
+        </ul>
+      </nav>
+
+      <section id="main">
+
+        <article id="work">
+          <header>
+            <h2>Worker</h2>
+          </header>
+          <input type="checkbox" id="wSupp">St&oslash;ttet</input><br/>
+          <input type="number" id='msg' value='0'></input>
+          <button id="helloButton" >Send</button>
+          <button id="stopButton" >Drep arbeider :-&lt;</button><br/>
+          <pre>function messageHandler(e) {
+  var reply="&lt;code&gt;" + e.data + "&lt;/code&gt;";
+  var ms= Math.floor(Math.random()*3000);
+    setTimeout(function() { postMessage(reply) }, ms);
+}
+addEventListener("message", messageHandler, true);
+</pre>
+          <p id ="wWin"><b>Meldinger:</b></p>
+          <p>
+            <pre>setTimeout(function, milliSec[, args]);
+setInterval(function, milliSec[, args]);
+clearXxxx();</pre>
+          </p>
+          <footer>Chrome fikser visst ikke denne&#x2026;</footer>
+          <script type='text/javascript'>
+            function stopWorker() {
+              worker.terminate();
+            }
+
+            function messageHandler(e) {
+              document.getElementById("wWin").innerHTML=
+                 document.getElementById("wWin").innerHTML +
+                 '<br/>Mottatt: '  + e.data;
+            }
+
+            function errorHandler(e) {
+              document.getElementById("wWin").innerHTML=
+                 document.getElementById("wWin").innerHTML +
+                 '&lt;br/&gt;Feil: '  + e.message;
+              console.log(e.message, e);
+            }
+
+
+            function loadDemo() {
+              lreSupportBox((typeof(window.Worker) !== "undefined"), 'wSupp');
+              if (typeof(Worker) !== "undefined") {
+                worker = new Worker("js/echoWorker.js");
+                worker.addEventListener("message", messageHandler, true);
+                worker.addEventListener("error", errorHandler, true);
+                document.getElementById("helloButton").onclick = function() {
+                  var n= parseInt(document.getElementById('msg').value);
+                  worker.postMessage(n);
+                  document.getElementById('msg').value= n+1 ;
+                }
+                 document.getElementById("stopButton").onclick = stopWorker;
+              }
+            }
+
+            window.addEventListener("load", loadDemo, true);
+          </script>
+        </article>
+
+        <article id='api'>
+          <header>
+            <h2>API</h2>
+          </header>
+          <ul>
+            <li><code>var worker= new Worker("scriptfil.js");</code></li>
+            <li>Ikke tilgang til <code>document</code></li>
+            <li><code>postMessage</code> som i "cross document
+            messaging"</li>
+            <li>stopper ikke av seg selv -- bruk <code>terminate()</code></li>
+        </ul>
+        </article>
+
+      </section>
+
+      <aside>
+      </aside>
+
+      <footer>
+        <h3>&copy; Mesan AS 2011</h3>
+      </footer>
+    </div>
+  </body>
+</html>

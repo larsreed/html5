@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
+<!--[if lt IE 7 ]> <html lang="no" class="no-js ie6"> <![endif]-->
+<!--[if IE 7 ]>    <html lang="no" class="no-js ie7"> <![endif]-->
+<!--[if IE 8 ]>    <html lang="no" class="no-js ie8"> <![endif]-->
+<!--[if IE 9 ]>    <html lang="no" class="no-js ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="no" class="no-js"> <!--<![endif]-->
+
+  <head>
+    <!--[if IE]><![endif]-->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta charset="utf-8" />
+    <meta name="author" content="lre">
+
+    <!--  Mobile viewport optimized: j.mp/bplateviewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- All JavaScript at the bottom, except for Modernizr which enables HTML5 elements & feature detects -->
+    <script src="js/modernizr-1.6.min.js"></script>
+    <script src="js/local.js"></script>
+
+    <title>HTML5 - Div APIer</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="shortcut icon" href="media/favicon.png" type="image/png">
+  </head>
+
+  <body>
+
+    <div id="container">
+      <h1>HTML5 - DIV APIer</h1>
+
+      <header>
+        <img src="media/logo2.gif" alt="logo" />
+        &nbsp;&nbsp;&nbsp;
+        <img src="media/HTML5.png" alt="logo" />
+      </header>
+
+      <nav id="nav">
+        <ul>
+          <li><a href="index.html">Intro</a></li>
+          <li><a href="history.html">Historien</a></li>
+          <li><a href="structure.html">Struktur</a></li>
+          <li><a href="media.html">Media</a></li>
+          <li><a href="workers.html">Workers</a></li>
+          <li><a href="offline.html">Offline</a></li>
+          <li><a href="forms.html">Forms</a></li>
+          <li><a href="desktop.html">Desktop</a></li>
+          <li><a href="mobile.html">Mobil</a></li>
+          <li>
+            <a href="divapi.html">APIer</a>
+            <ul>
+              <li><a href="#cdm">Cross-doc</a></li>
+              <li><a href="#xmlhttp">XMLHttp</a></li>
+              <li><a href="#webSocket">WebSocket</a></li>
+              <li><a href="#notif">Notifications</a></li>
+              <li><a href="#webStore">WebStorage</a></li>
+              <li><a href="#hist">History</a></li>
+            </ul>
+          </li>
+          <li><a href="refs.html">Referanser</a></li>
+        </ul>
+      </nav>
+
+      <section id="main">
+
+        <article id="cdm">
+          <header>
+            <h2>Messaging</h2>
+          </header>
+          <ul>
+            <li><input type="checkbox" id="cdmSupp">Cross Document Messaging</input></li>
+            <li>F.eks. portal / iframe</li>
+            <li>2-veis piper mellom deler av koden</li>
+            <li>Kommunikasjon p&aring; tvers, beskytte mot XSS</li>
+            <li>SMS, MMS, email etc</li>
+            <li><code>window.postMessage(message, URL);</code></li>
+            <li><code>window.addEventListener("message", handler, true);</code></li>
+            <li><pre>function handler(msg) {
+  switch(msg.origin) {
+    case "dev.mesan.no":
+      ...
+      break;
+    default:
+      //noop
+  }
+}</pre></li>
+            <li>
+              Server events (<i>push DOM event</i>,
+              <a href="http://dev.w3.org/html5/eventsource/"
+              target="_blank">[dev.w3.org/html5/eventsource]</a>), eks.:
+              <pre>var source = new EventSource('updates.cgi');
+source.onmessage = function (event) {
+  alert(event.data);
+};</pre>
+            </li>
+          </ul>
+          <script type='text/javascript'>
+            lreSupportBox((typeof window.postMessage != 'undefined'), 'cdmSupp');
+          </script>
+        </article>
+
+        <article id="xmlhttp">
+          <header>
+            <h2>XMLHttpRequest level 2</h2>
+          </header>
+          <ul>
+            <li><input type="checkbox" id="httpSupp">St&oslash;ttet</input></li>
+            <li>Cross-origin</li>
+            <li>
+              Progress events
+              <ul>
+                <li><code>loadstart, progress, abort, error, load,
+                loadend</code></li>
+              </ul>
+            </li>
+            <li>Byte stream</li>
+            <li><a href="http://www.w3.org/TR/XMLHttpRequest/" target="_blank">[www.w3.org/TR/XMLHttpRequest]</a>,
+            <a href="http://www.w3.org/TR/XMLHttpRequest2/" target="_blank">[www.w3.org/TR/XMLHttpRequest<b>2</b>]</a></li>
+          </ul>
+          <script type='text/javascript'>
+            lreSupportBox((typeof new XMLHttpRequest().withCredentials != 'undefined'), 'httpSupp');
+          </script>
+        </article>
+
+        <article id='webSocket'>
+          <header>
+            <h2>WebSocket API</h2>
+          </header>
+          <ul>
+            <li><input type="checkbox" id="sockSupp">St&oslash;ttet</input></li>
+            <li><i>Sikkerhetsproblemer</i></li>
+            <li><i>Vesentlig</i> reduksjon av nettrafikk;<br/>
+              unng&aring; polling, &aring;pning/lukking</li>
+            <li>Full duplex, single socket</li>
+            <li>Starter med HTTP handshake, oppgraderes</li>
+            <li>interface WebSocket implements EventTarget
+              <pre>
+  readonly attribute DOMString url, protocol;
+
+  // ready state
+  const unsigned short CONNECTING=0, OPEN=1. CLOSING=2, CLOSED=3;
+  readonly attribute unsigned short readyState;
+  readonly attribute unsigned long bufferedAmount;
+
+  // networking
+  attribute Function onopen, onmessage, onerror, onclose;
+  void send(in DOMString data);
+  void close();</pre>
+            </li>
+          </ul>
+          <script type='text/javascript'>
+            lreSupportBox(!!(window.webSocket), 'sockSupp');
+          </script>
+        </article>
+
+        <article id='notif'>
+          <header>
+            <h2>Notifications</h2>
+          </header>
+          I mangel av noe som virker, se
+          p&aring; <a href="https://www.ibm.com/developerworks/mydeveloperworks/blogs/bobleah/entry/html5_code_example_of_notifications81"
+          target="_blank">denne i Chrome&#x2026;</a>
+        </article>
+
+        <article id='webStore'>
+          <header>
+            <h2>Web Storage API</h2>
+          </header>
+          <ul>
+            <li>
+              <input type="checkbox" id="locSupp">LocalStorage</input><br/>
+              <input type="checkbox" id="sessSupp">SessionStorage</input><br/>
+              <input type="checkbox" id="webSqlSupp">Web SQL DB</input><br/>
+              <input type="checkbox" id="indexSupp">IndexedDB</input><br/>
+            </li>
+            <li>
+              <pre>interface Storage {
+  readonly attribute unsigned long length;
+  DOMString key(in unsigned long index);
+  any getItem(in DOMString key);
+  void setItem(in DOMString key, in any value);
+  void removeItem(in DOMString key);
+  void clear();
+};</pre>
+            </li>
+            <li>Quota (~5MB)</li>
+            <li><code>addEventListener ("storage"&#x2026;)</code></li>
+            <li><a href="http://www.w3.org/TR/webdatabase/" target="_blank">Web SQL</a> -- nedlagt&#x2026;</li>
+            <li><a href="http://dev.w3.org/html5/webstorage/" target="_blank">[dev.w3.org/html5/webstorage]</a></li>
+            <li><a href="http://www.w3.org/TR/IndexedDB/">[www.w3.org/TR/IndexedDB]</a></li>
+          </ul>
+          <script type='text/javascript'>
+            lreSupportBox(Modernizr.websqldatabase, 'webSqlSupp');
+            lreSupportBox(Modernizr.indexeddb, 'indexSupp');
+            try {
+              lreSupportBox(!!(window.localStorage), 'locSupp');
+            }
+            catch (e) {
+              //Ignore
+            }
+            try {
+              lreSupportBox(!!(window.sessionStorage), 'sessSupp');
+            }
+            catch (e) {
+              //Ignore
+            }
+          </script>
+        </article>
+
+        <article id='hist'>
+          <header>
+            <h2>History API</h2>
+          </header>
+          <ul>
+            <li><input type="checkbox" id="histSupp">History API</input><br/>
+                <input type="checkbox" id="undoSupp">History undo</input></li>
+          </ul>
+          <script type='text/javascript'>
+            lreSupportBox(Modernizr.history, 'histSupp');
+            lreSupportBox(!!(window.undoManager), 'undoSupp');
+          </script>
+        </article>
+
+
+      </section>
+
+      <aside>
+        <h3>Origin security</h3>
+        <p>
+          Protocol + port + host (ikke path)
+        </p>
+
+        <h3>Sikkerhetstips</h3>
+        <p>
+          * Bruk <code>textContent</code> i stedet
+            for <code>innerHTML</code><br/>
+          * Ikke bruk <code>eval</code> p&aring; data fra meldinger<br/>
+          * Bruk window.JSON<br/>
+          * Bruk whitelisting av avsendere
+        </p>
+      </aside>
+
+      <footer>
+        <h2>&copy; Mesan AS 2011</h2>
+      </footer>
+    </div>
+  </body>
+</html>
