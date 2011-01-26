@@ -213,7 +213,12 @@ source.onmessage = function (event) {
           </header>
           <ul>
             <li><input type="checkbox" id="histSupp">History API</input><br/>
-                <input type="checkbox" id="undoSupp">History undo</input></li>
+                <input type="checkbox" id="undoSupp">History
+                undo</input></li>
+            <li>
+              <code>window.history</code>
+            </li>
+            <li>URL og/eller tilstand</li>
           </ul>
           <script type='text/javascript'>
             lreSupportBox(Modernizr.history, 'histSupp');
